@@ -1,5 +1,9 @@
 # 💧 Water Conservation Alert System
 
+[![Build](https://github.com/Student2026-maker/esp8266-water-conservation-alert/actions/workflows/build.yml/badge.svg)](https://github.com/Student2026-maker/esp8266-water-conservation-alert/actions/workflows/build.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+![Platform](https://img.shields.io/badge/platform-ESP8266-blue)
+
 **An ESP8266-based smart water-tap reminder that plays a spoken alert when someone approaches — no app, no Wi-Fi, no cloud. Just a chip, a sensor, and a speaker.**
 
 Built for real-world deployment: schools, hostels, offices — anywhere people need a gentle nudge to not waste water.
@@ -38,6 +42,8 @@ An HC-SR04 ultrasonic sensor watches a water tap. When someone comes within **40
 | Audio out | GPIO5 | D1 |
 | Ultrasonic TRIG | GPIO14 | D5 |
 | Ultrasonic ECHO | GPIO12 | D6 |
+
+![Wiring diagram](wiring_diagram.svg)
 
 ## 🚀 Getting started
 
