@@ -8,7 +8,11 @@ Built for real-world deployment: schools, hostels, offices — anywhere people n
 
 ## 🎯 What it does
 
-An HC-SR04 ultrasonic sensor watches a water tap. When someone comes within **40 cm**, it plays a spoken voice message once — *"Please don't waste water. Water is precious. Use water wisely."* No repeated nagging while the person lingers; it re-arms automatically once they step away.
+An HC-SR04 ultrasonic sensor watches a water tap. When someone comes within **40 cm**, it plays a spoken voice message — *"Please don't waste water. Water is precious. Use water wisely."*
+
+- Walking away mid-message does **not** cut it short — it always plays to completion.
+- Leaving and coming back under 40 cm before the message finishes **restarts it from the beginning**.
+- Standing there through the whole message with no gap does **not** auto-repeat — you have to step away and approach again to trigger it a second time.
 
 ## ⚙️ How it works
 
@@ -49,11 +53,41 @@ An HC-SR04 ultrasonic sensor watches a water tap. When someone comes within **40
 esp8266_water.ino   — main sketch: sensor logic + hardware audio playback
 audio_data.h         — precompiled 16-bit PCM voice message (PROGMEM)
 water_raw.bin         — raw audio source used to generate audio_data.h
+convert_audio.py      — turns any audio file into audio_data.h / water_raw.bin
+requirements.txt      — Python deps for convert_audio.py
 ```
 
 ## 🔊 Using your own voice message
 
-Record or generate any short WAV/MP3, then process it to 16 kHz mono 16-bit PCM with DC-blocking and soft-limiting before regenerating `audio_data.h`. Keep clips short (2–6 seconds) to fit comfortably in flash alongside the sketch.
+Record anything — your own voice, a different language, a different script — as an MP3, WAV, M4A, or anything else `ffmpeg`/`PyAV` can decode. Then run:
+
+```bash
+pip install -r requirements.txt
+python convert_audio.py my_message.mp3
+```
+
+This regenerates `water_raw.bin` and `audio_data.h` in place, ready to be picked up by the next Arduino upload — no manual audio editing needed. The script:
+
+1. Resamples to 16 kHz mono.
+2. DC-blocks (80 Hz high-pass) and band-limits (7 kHz low-pass) for clean, intelligible speech through a small speaker.
+3. Applies tanh soft-limiting for extra loudness without hard clipping.
+4. Fades the clip in/out over 5 ms so playback starts and ends at exact silence (no clicks/pops).
+
+Useful flags:
+
+```bash
+# Louder (more compression) - try values between 1.8 (clean) and ~3.5 (loud, more compressed)
+python convert_audio.py my_message.mp3 --drive 3.0
+
+# Lower peak level, more headroom
+python convert_audio.py my_message.mp3 --peak 0.85
+```
+
+After running it, just re-upload the sketch in Arduino IDE — `esp8266_water.ino` already `#include`s `audio_data.h`.
+
+**Tips:**
+- Keep clips short (2–6 seconds) — they're stored in program flash alongside the sketch.
+- The script prints a `duty range` at the end; keep it away from the extremes (`0` and `255`) — the ESP8266's hardware sigma-delta output loses linearity near those, which is what causes speech to sound distorted rather than louder. If your range is creeping close to the edges, lower `--drive` or `--peak`.
 
 ## 🛠️ Customization
 
