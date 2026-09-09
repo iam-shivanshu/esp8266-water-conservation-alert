@@ -1,77 +1,94 @@
-<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
-  <rect width="900" height="600" fill="#ffffff"/>
+<svg viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="900" height="620" fill="#ffffff"/>
 
   <!-- Title -->
-  <text x="450" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Water Conservation Alert - Wiring Diagram</text>
+  <text x="450" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Water Conservation Alert - Wiring Diagram (12V build)</text>
+
+  <!-- 12V DC jack -->
+  <rect x="30" y="70" width="140" height="70" rx="8" fill="#ffe9e9" stroke="#c62828" stroke-width="2"/>
+  <text x="100" y="98" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">12V DC Jack</text>
+  <text x="100" y="118" font-size="11" text-anchor="middle" fill="#333">Single supply input</text>
+
+  <!-- LM7805 -->
+  <rect x="230" y="60" width="140" height="90" rx="8" fill="#e8f0fe" stroke="#2b5fd9" stroke-width="2"/>
+  <text x="300" y="85" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">LM7805</text>
+  <text x="300" y="103" font-size="11" text-anchor="middle" fill="#333">12V IN → 5V OUT</text>
+  <text x="300" y="119" font-size="11" text-anchor="middle" fill="#333">powers NodeMCU only</text>
+  <text x="300" y="135" font-size="10" text-anchor="middle" fill="#666">(not the amp)</text>
 
   <!-- NodeMCU -->
-  <rect x="340" y="200" width="220" height="220" rx="8" fill="#e8f0fe" stroke="#2b5fd9" stroke-width="2"/>
-  <text x="450" y="225" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a1a1a">ESP8266 NodeMCU</text>
+  <rect x="230" y="220" width="220" height="220" rx="8" fill="#e8f0fe" stroke="#2b5fd9" stroke-width="2"/>
+  <text x="340" y="245" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a1a1a">ESP8266 NodeMCU</text>
+  <text x="250" y="280" font-size="13" fill="#333">5V (from LM7805)</text>
+  <text x="250" y="310" font-size="13" fill="#333">D1 (GPIO5) - audio out</text>
+  <text x="250" y="340" font-size="13" fill="#333">D5 (GPIO14) - TRIG</text>
+  <text x="250" y="370" font-size="13" fill="#333">D6 (GPIO12) - ECHO</text>
+  <text x="250" y="400" font-size="13" fill="#333">GND</text>
+  <circle cx="430" cy="276" r="4" fill="#2b5fd9"/>
+  <circle cx="430" cy="306" r="4" fill="#2b5fd9"/>
+  <circle cx="430" cy="336" r="4" fill="#2b5fd9"/>
+  <circle cx="430" cy="366" r="4" fill="#2b5fd9"/>
+  <circle cx="430" cy="396" r="4" fill="#2b5fd9"/>
 
-  <!-- NodeMCU pin labels -->
-  <text x="360" y="260" font-size="13" fill="#333">D1 (GPIO5)</text>
-  <text x="360" y="290" font-size="13" fill="#333">D5 (GPIO14)</text>
-  <text x="360" y="320" font-size="13" fill="#333">D6 (GPIO12)</text>
-  <text x="360" y="350" font-size="13" fill="#333">GND</text>
-  <text x="360" y="380" font-size="13" fill="#333">VIN (5V)</text>
+  <!-- Ultrasonic sensor -->
+  <rect x="30" y="220" width="160" height="130" rx="8" fill="#eafaf0" stroke="#1f9d55" stroke-width="2"/>
+  <text x="110" y="245" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">HC-SR04 / SRF05</text>
+  <text x="110" y="262" font-size="11" text-anchor="middle" fill="#333">Ultrasonic Sensor</text>
+  <text x="45" y="285" font-size="11" fill="#333">VCC → 5V (NOT 3.3V)</text>
+  <text x="45" y="303" font-size="11" fill="#333">TRIG → D5</text>
+  <text x="45" y="321" font-size="11" fill="#333">ECHO → D6</text>
+  <text x="45" y="339" font-size="11" fill="#333">GND → common GND</text>
 
-  <!-- pin dots -->
-  <circle cx="540" cy="256" r="4" fill="#2b5fd9"/>
-  <circle cx="540" cy="286" r="4" fill="#2b5fd9"/>
-  <circle cx="540" cy="316" r="4" fill="#2b5fd9"/>
-  <circle cx="540" cy="346" r="4" fill="#2b5fd9"/>
-  <circle cx="540" cy="376" r="4" fill="#2b5fd9"/>
-
-  <!-- HC-SR04 -->
-  <rect x="620" y="60" width="200" height="120" rx="8" fill="#eafaf0" stroke="#1f9d55" stroke-width="2"/>
-  <text x="720" y="85" font-size="15" font-weight="bold" text-anchor="middle" fill="#1a1a1a">HC-SR04</text>
-  <text x="720" y="105" font-size="12" text-anchor="middle" fill="#333">Ultrasonic Sensor</text>
-  <text x="640" y="130" font-size="12" fill="#333">VCC → 5V (NOT 3.3V)</text>
-  <text x="640" y="148" font-size="12" fill="#333">TRIG → D5</text>
-  <text x="640" y="166" font-size="12" fill="#333">ECHO → D6 (via divider)</text>
-
-  <!-- voltage divider note -->
-  <rect x="500" y="120" width="110" height="50" rx="4" fill="#fff4e5" stroke="#c77700" stroke-width="1.5"/>
-  <text x="555" y="138" font-size="11" text-anchor="middle" fill="#663c00">Voltage divider</text>
-  <text x="555" y="152" font-size="11" text-anchor="middle" fill="#663c00">(1k + 2k resistors)</text>
-  <text x="555" y="166" font-size="10" text-anchor="middle" fill="#663c00">5V echo → 3.3V safe</text>
-
-  <!-- RC filter -->
-  <rect x="80" y="250" width="180" height="100" rx="8" fill="#fff4e5" stroke="#c77700" stroke-width="2"/>
-  <text x="170" y="275" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">RC Low-Pass Filter</text>
-  <text x="100" y="300" font-size="12" fill="#333">2.2k&#937; + 4nF</text>
-  <text x="100" y="318" font-size="12" fill="#333">(2 stages recommended)</text>
-  <text x="100" y="336" font-size="11" fill="#666">Removes carrier noise</text>
+  <!-- 3.5mm jack as connector -->
+  <rect x="500" y="290" width="130" height="60" rx="8" fill="#f3f3f3" stroke="#777" stroke-width="1.5"/>
+  <text x="565" y="312" font-size="12" font-weight="bold" text-anchor="middle" fill="#333">3.5mm Jack</text>
+  <text x="565" y="328" font-size="10" text-anchor="middle" fill="#666">used as a plain</text>
+  <text x="565" y="341" font-size="10" text-anchor="middle" fill="#666">2-pin connector</text>
 
   <!-- Amplifier -->
-  <rect x="60" y="420" width="220" height="110" rx="8" fill="#fbeaff" stroke="#8e24aa" stroke-width="2"/>
-  <text x="170" y="445" font-size="15" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Class-D Amplifier</text>
-  <text x="170" y="462" font-size="11" text-anchor="middle" fill="#333">(PAM8403 / TPA class-D)</text>
-  <text x="80" y="485" font-size="12" fill="#333">Audio IN ← filter output</text>
-  <text x="80" y="503" font-size="12" fill="#333">GND ← common ground</text>
-  <text x="80" y="521" font-size="12" fill="#333">Power: 5V (own supply ok)</text>
+  <rect x="660" y="230" width="210" height="140" rx="8" fill="#fbeaff" stroke="#8e24aa" stroke-width="2"/>
+  <text x="765" y="255" font-size="15" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Class-D Amplifier</text>
+  <text x="765" y="272" font-size="11" text-anchor="middle" fill="#333">DC8-28V rated</text>
+  <text x="678" y="295" font-size="11" fill="#333">Power ← 12V rail direct</text>
+  <text x="678" y="313" font-size="11" fill="#333">(NOT from LM7805)</text>
+  <text x="678" y="331" font-size="11" fill="#333">Audio IN L ← D1 (via jack)</text>
+  <text x="678" y="349" font-size="11" fill="#333">GND ← common ground</text>
 
   <!-- Speaker -->
-  <circle cx="450" cy="490" r="45" fill="#f5f5f5" stroke="#555" stroke-width="2"/>
-  <circle cx="450" cy="490" r="25" fill="#dcdcdc" stroke="#555" stroke-width="1.5"/>
-  <text x="450" y="550" font-size="13" text-anchor="middle" fill="#333">4-8&#937; Speaker</text>
+  <circle cx="765" cy="480" r="45" fill="#f5f5f5" stroke="#555" stroke-width="2"/>
+  <circle cx="765" cy="480" r="25" fill="#dcdcdc" stroke="#555" stroke-width="1.5"/>
+  <text x="765" y="540" font-size="13" text-anchor="middle" fill="#333">4-8&#937; Speaker</text>
 
   <!-- Wires -->
-  <!-- D1 -> RC filter -->
-  <path d="M 540 256 H 590 V 280 H 260" fill="none" stroke="#2b5fd9" stroke-width="2"/>
-  <!-- RC filter -> amp -->
-  <path d="M 170 350 V 475 H 280" fill="none" stroke="#c77700" stroke-width="2"/>
-  <!-- amp -> speaker -->
-  <path d="M 280 490 H 405" fill="none" stroke="#8e24aa" stroke-width="2"/>
-  <!-- D5 -> TRIG -->
-  <path d="M 540 286 H 600 V 148 H 620" fill="none" stroke="#1f9d55" stroke-width="2"/>
-  <!-- D6 -> divider -> ECHO -->
-  <path d="M 540 316 H 480 V 145 H 500" fill="none" stroke="#1f9d55" stroke-width="2"/>
-  <path d="M 610 148 H 620" fill="none" stroke="#1f9d55" stroke-width="2"/>
-  <!-- GND common -->
-  <path d="M 540 346 H 590 V 550 H 170 V 530" fill="none" stroke="#777" stroke-width="1.5" stroke-dasharray="4,3"/>
-  <text x="595" y="365" font-size="10" fill="#777">common GND</text>
+  <!-- 12V jack -> LM7805 input -->
+  <path d="M 170 100 H 230" fill="none" stroke="#c62828" stroke-width="2.5"/>
+  <text x="180" y="93" font-size="9" fill="#c62828">12V</text>
+
+  <!-- 12V jack -> amp power (direct, bypassing LM7805) -->
+  <path d="M 100 140 V 200 H 765 V 230" fill="none" stroke="#c62828" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <text x="400" y="196" font-size="10" fill="#c62828">12V direct to amp (bypasses LM7805)</text>
+
+  <!-- LM7805 -> NodeMCU 5V -->
+  <path d="M 300 150 V 276 H 230" fill="none" stroke="#2b5fd9" stroke-width="2.5"/>
+  <text x="305" y="200" font-size="9" fill="#2b5fd9">5V</text>
+
+  <!-- D1 -> jack -> amp audio in -->
+  <path d="M 430 306 H 500" fill="none" stroke="#2b5fd9" stroke-width="2"/>
+  <path d="M 630 306 H 660" fill="none" stroke="#2b5fd9" stroke-width="2"/>
+
+  <!-- D5 -> TRIG, D6 -> ECHO -->
+  <path d="M 190 285 H 230" fill="none" stroke="#1f9d55" stroke-width="2"/>
+  <path d="M 190 321 H 230" fill="none" stroke="#1f9d55" stroke-width="2"/>
+
+  <!-- Amp -> speaker -->
+  <path d="M 765 370 V 435" fill="none" stroke="#8e24aa" stroke-width="2.5"/>
+
+  <!-- Common ground bus -->
+  <path d="M 100 140 V 570 H 870 V 260" fill="none" stroke="#777" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <path d="M 300 150 V 560" fill="none" stroke="#777" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <path d="M 430 396 V 560" fill="none" stroke="#777" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="500" y="585" font-size="11" fill="#777">All GND points (12V supply, LM7805, NodeMCU, amp) are common - this is essential</text>
 
   <!-- Legend -->
-  <text x="450" y="585" font-size="11" text-anchor="middle" fill="#666">Lines: blue=audio digital out, green=sensor, orange=filtered audio, purple=amp/speaker, dashed=ground</text>
+  <text x="450" y="608" font-size="11" text-anchor="middle" fill="#666">Lines: red=12V, blue=5V/audio digital, green=sensor, purple=amp/speaker, dashed=ground/bypass</text>
 </svg>

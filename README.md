@@ -12,28 +12,31 @@ Built for real-world deployment: schools, hostels, offices — anywhere people n
 
 ## 🎯 What it does
 
-An HC-SR04 ultrasonic sensor watches a water tap. When someone comes within **40 cm**, it plays a spoken voice message — *"Please don't waste water. Water is precious. Use water wisely."*
-
-- Walking away mid-message does **not** cut it short — it always plays to completion.
-- Leaving and coming back under 40 cm before the message finishes **restarts it from the beginning**.
-- Standing there through the whole message with no gap does **not** auto-repeat — you have to step away and approach again to trigger it a second time.
+An ultrasonic sensor (HC-SR04 / HY-SRF05, interchangeable) watches a water tap. When someone comes within **40 cm**, it plays a spoken voice message once — *"Please don't waste water. Water is precious. Use water wisely."* It re-arms automatically once they step away, ready for the next person.
 
 ## ⚙️ How it works
 
 - **Audio playback** uses the ESP8266's internal **hardware sigma-delta modulator** (not `analogWrite()`, not I2S) — a single GPIO pin drives an amplifier and speaker directly.
 - Voice is generated once offline (neural TTS), preprocessed (DC-block, band-limit, soft-limited gain, fade in/out) and baked into flash as a 16-bit PCM array — no SD card, no MP3 decoder needed.
-- Distance is sampled with a 3-reading median filter to reject sensor noise.
-- A hardware watchdog (`ESP.wdtEnable`) guarantees the unit self-recovers if it ever hangs — important for unattended, always-on deployment.
+- The amplifier and speaker's own limited high-frequency response naturally roll off the sigma-delta carrier, so no extra analog filtering stage is needed — see [Hardware](#-hardware) for the current build.
 
 ## 🔌 Hardware
+
+Current build runs on a single 12V supply and a higher-power amplifier instead of a 5V-only module like the PAM8403:
 
 | Component | Notes |
 |---|---|
 | ESP8266 NodeMCU | Any NodeMCU v2/v3 board |
-| HC-SR04 ultrasonic sensor | 5V powered — **not** 3.3V |
-| Class-D amplifier (e.g. PAM8403 / TPA class-D board) | Driven directly from a GPIO bitstream |
+| HC-SR04 / HY-SRF05 ultrasonic sensor | 5V powered — **not** 3.3V |
+| 12V DC input (barrel jack) | Single supply for the whole circuit |
+| LM7805 voltage regulator | Steps the 12V down to 5V for the NodeMCU only |
+| Class-D amplifier, DC8–28V rated | Powered directly from the 12V rail (within its rated range) — NOT from the LM7805's 5V output |
 | 4–8 Ω speaker | |
-| RC low-pass filter (2.2 kΩ + 4 nF, two stages recommended) | Removes ultrasonic carrier noise before the amplifier |
+
+**Wiring notes:**
+- The amplifier's audio input is driven directly from GPIO5/D1 (a salvaged 3.5 mm jack is used here purely as a connector, not for an external audio source).
+- **All grounds must be common**: 12V supply GND, LM7805 GND, NodeMCU GND, and the amplifier's GND (including its audio-input-side ground) all tie together. This is essential — the amplifier reads the GPIO signal relative to NodeMCU's ground, so if that reference is missing, the amp gets a floating/incorrect signal.
+- If you use a lower-power 5V-only amp (e.g. PAM8403) instead, skip the LM7805/12V rail and power everything from the NodeMCU's own 5V — see the project's commit history for that variant.
 
 ### Pinout
 
