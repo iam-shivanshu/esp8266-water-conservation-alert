@@ -30,7 +30,7 @@ Current build runs on a single 12V supply and a higher-power amplifier instead o
 | HC-SR04 / HY-SRF05 ultrasonic sensor | 5V powered — **not** 3.3V |
 | 12V DC input (barrel jack) | Single supply for the whole circuit |
 | LM7805 voltage regulator | Steps the 12V down to 5V for the NodeMCU only |
-| Class-D amplifier, DC8–28V rated | Powered directly from the 12V rail (within its rated range) — NOT from the LM7805's 5V output |
+| TPA1031 class-D amplifier (DC8–28V rated) | Powered directly from the 12V rail (within its rated range) — NOT from the LM7805's 5V output |
 | 4–8 Ω speaker | |
 
 **Wiring notes:**
