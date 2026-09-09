@@ -46,7 +46,7 @@ Current build runs on a single 12V supply and a higher-power amplifier instead o
 | Ultrasonic TRIG | GPIO14 | D5 |
 | Ultrasonic ECHO | GPIO12 | D6 |
 
-![Wiring diagram](wiring_diagram.svg)
+![Wiring diagram](wiring_diagram.jpg)
 
 ## 🚀 Getting started
 
@@ -64,6 +64,7 @@ audio_data.h         — precompiled 16-bit PCM voice message (PROGMEM)
 water_raw.bin         — raw audio source used to generate audio_data.h
 convert_audio.py      — turns any audio file into audio_data.h / water_raw.bin
 requirements.txt      — Python deps for convert_audio.py
+wiring_diagram.jpg     — hand-drawn circuit diagram for the 12V build
 ```
 
 ## 🔊 Using your own voice message
